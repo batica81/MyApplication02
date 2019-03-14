@@ -10,6 +10,20 @@ public class MainActivity extends AppCompatActivity {
     private WebView webview;
 
     @Override
+    protected void onSaveInstanceState(Bundle outState )
+    {
+        super.onSaveInstanceState(outState);
+        webview.saveState(outState);
+    }
+
+    @Override
+    protected void onRestoreInstanceState(Bundle savedInstanceState)
+    {
+        super.onRestoreInstanceState(savedInstanceState);
+        webview.restoreState(savedInstanceState);
+    }
+
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
@@ -18,6 +32,9 @@ public class MainActivity extends AppCompatActivity {
         webview.getSettings().setJavaScriptEnabled(true);
         webview.getSettings().setDomStorageEnabled(true);
         webview.setOverScrollMode(WebView.OVER_SCROLL_NEVER);
-        webview.loadUrl("https://outerspace.duckdns.org/index.html");
+        if (savedInstanceState == null)
+        {
+            webview.loadUrl("https://outerspace.duckdns.org/index.html");
+        }
     }
 }
